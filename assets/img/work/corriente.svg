@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 100 360 258" width="360" height="258">
+  <!-- Portfolio version of the Corriente mark: the wordmark is cropped off,
+       because the card caption already reads "Corriente" and the original's
+       dark brown lettering disappeared against the dark theme. The full
+       logo with wordmark lives in the Corriente repo. -->
+  <defs>
+    <linearGradient id="basketGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d9772f"/>
+      <stop offset="100%" stop-color="#b8571c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- flow / current lines -->
+  <g fill="none" stroke="#e2984f" stroke-width="8" stroke-linecap="round" opacity="0.55">
+    <path d="M40 120 Q 120 100, 200 120 T 360 120"/>
+    <path d="M30 150 Q 120 130, 210 150 T 370 150"/>
+  </g>
+  <g fill="none" stroke="#c96a24" stroke-width="8" stroke-linecap="round" opacity="0.8">
+    <path d="M35 180 Q 130 158, 220 180 T 365 180"/>
+  </g>
+
+  <!-- basket -->
+  <g>
+    <path d="M110 220 L290 220 L268 330 Q 200 350, 132 330 Z" fill="url(#basketGrad)"/>
+    <g stroke="#8f440f" stroke-width="4" opacity="0.5">
+      <path d="M124 250 L276 250" />
+      <path d="M130 280 L270 280" />
+      <path d="M140 308 L260 308" />
+      <path d="M150 220 L128 330" />
+      <path d="M180 220 L166 335" />
+      <path d="M220 220 L234 335" />
+      <path d="M250 220 L272 330" />
+    </g>
+    <rect x="104" y="208" width="192" height="18" rx="9" fill="#a6501a"/>
+    <path d="M150 208 Q 200 140, 250 208" fill="none" stroke="#a6501a" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <!-- pan dulce (conchas) peeking out -->
+  <g>
+    <circle cx="160" cy="200" r="30" fill="#f4c15c"/>
+    <path d="M138 190 Q160 178, 182 190" stroke="#e0a53f" stroke-width="4" fill="none"/>
+    <path d="M136 200 Q160 188, 184 200" stroke="#e0a53f" stroke-width="4" fill="none"/>
+    <path d="M138 210 Q160 200, 182 210" stroke="#e0a53f" stroke-width="4" fill="none"/>
+
+    <circle cx="205" cy="185" r="26" fill="#e8785e"/>
+    <path d="M186 177 Q205 166, 224 177" stroke="#cf5a41" stroke-width="4" fill="none"/>
+    <path d="M185 186 Q205 176, 225 186" stroke="#cf5a41" stroke-width="4" fill="none"/>
+
+    <circle cx="245" cy="202" r="28" fill="#f6e2a8"/>
+    <path d="M225 192 Q245 180, 265 192" stroke="#dcc27f" stroke-width="4" fill="none"/>
+    <path d="M223 202 Q245 190, 267 202" stroke="#dcc27f" stroke-width="4" fill="none"/>
+    <path d="M225 212 Q245 202, 265 212" stroke="#dcc27f" stroke-width="4" fill="none"/>
+  </g>
+</svg>

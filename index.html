@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Saul Gerardo | Supply Chain, Analytics &amp; Operations</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="description" content="Supply Chain Management student at Iowa State. Procurement, logistics, and automation work at Pfizer, Tesla, United Airlines, and Palace Entertainment.">
+
+<meta property="og:title" content="Saul Gerardo | Supply Chain, Analytics &amp; Operations">
+<meta property="og:description" content="Procurement, logistics, and automation work at Pfizer, Tesla, United Airlines, and Palace Entertainment.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sauldgerardo.netlify.app/">
+<meta property="og:image" content="https://sauldgerardo.netlify.app/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sauldgerardo.netlify.app/assets/og-image.jpg">
+
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Three families, one request: Inter for body copy, Syne for display
+     headings, Space Mono for labels and other micro-type. -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/styles.css?v=29">
+
+<script>
+  (function () {
+    var t = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="mark" href="#top" aria-label="Home">HOME</a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#work">Projects</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle color theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2z"/></svg>
+      </button>
+
+      <a class="btn btn--sm btn--primary" href="#contact">Get in touch</a>
+
+      <button class="icon-btn nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+
+    <div class="hero__copy">
+      <p class="eyebrow reveal">Supply Chain · Technology · Finance</p>
+
+      <!-- Written in sentence case and uppercased in CSS, so the accessible
+           name and the document outline stay natural. -->
+      <!-- Two explicit blocks rather than relying on the text wrapping. This
+           is what guarantees SAUL / GERARDO and makes a mid-word split
+           impossible at any width. -->
+      <h1 class="hero__name reveal"><span>Saul</span><span>Gerardo</span></h1>
+
+      <p class="hero__greet reveal">Hello there!</p>
+
+      <p class="hero__desc reveal">I work at the intersection of supply chain, technology, and
+         finance untangling how goods, data, and capital move through global systems. Currently
+         studying Supply Chain Management at Iowa State University, with hands-on experience at
+         Pfizer, Tesla, United Airlines, and Palace Entertainment, and actively pursuing roles
+         that bridge operations, tech, and finance.</p>
+
+      <div class="hero__cta reveal">
+        <a class="btn btn--primary" href="#work">View projects</a>
+        <a class="btn" data-link="linkedin" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <!-- Decorative. Drawn in assets/js/globe.js; the page reads identically
+           with JS off. -->
+      <canvas class="globe" id="globe" aria-hidden="true"></canvas>
+    </div>
+
+  </div>
+
+  <!-- Logos resolve from assets/img/logos/<data-logo>.<ext> in main.js.
+       If no file is found the wordmark text stays. -->
+  <div class="ticker" aria-label="Organizations I have worked with">
+    <ul class="ticker__track" id="tickerTrack">
+      <li class="tk" data-logo="pfizer">Pfizer</li>
+      <li class="tk" data-logo="tesla">Tesla</li>
+      <li class="tk" data-logo="united-airlines">United Airlines</li>
+      <li class="tk" data-logo="palace-entertainment">Palace Entertainment</li>
+      <li class="tk" data-logo="alpha-kappa-psi">Alpha Kappa Psi</li>
+      <li class="tk" data-logo="iowa-state">SCM Club at Iowa State</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--alt" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-index" aria-hidden="true">01 / Projects</p>
+      <h2>Projects</h2>
+      <p class="sec-sub">Work across supply chain, technology, and finance.</p>
+      <a class="btn btn--sm sec-head__cta" data-link="github" target="_blank" rel="noopener">
+        All repositories on GitHub
+        <svg class="btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+      </a>
+    </div>
+
+    <div class="showcase" id="showcase">
+
+      <article class="show show--feature reveal" data-cat="supply-chain">
+        <a class="show__card show__card--feature" href="https://github.com/sauldgerardo/battery-cell-monte-carlo" target="_blank" rel="noopener">
+          <!-- Regenerated from the repo's own simulation (seed 42). A PNG
+               can't follow the theme toggle, so both variants ship and CSS
+               shows one. -->
+          <span class="show__featimg">
+            <img class="thm thm--dark" src="assets/img/work/montecarlo-dark.png" alt="Safety-stock holding cost rising with target service level, marked at 95 percent">
+            <img class="thm thm--light" src="assets/img/work/montecarlo-light.png" alt="" aria-hidden="true">
+          </span>
+          <span class="show__feattext">
+            <span class="show__flag">Featured project</span>
+            <span class="show__ftitle">Battery Cell Risk Simulator</span>
+            <span class="show__fdesc">A Monte Carlo simulation over 10,000 replenishment cycles that recommends a safety-stock policy hitting a 95% service level without over-committing cash. The curve shows how sharply stock cost climbs as the target service level nears 100%.</span>
+            <span class="show__flink">View on GitHub
+              <svg class="btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+            </span>
+          </span>
+        </a>
+      </article>
+
+      <article class="show reveal" data-cat="technology">
+        <a class="show__card" href="https://www.linkedin.com/in/saulgerardo/details/projects/" target="_blank" rel="noopener">
+          <!-- A diagram of what the pipeline does, deliberately not a mock of
+               the internal tool's UI. Colours come from currentColor and the
+               theme tokens, so it follows the theme toggle. -->
+          <span class="show__visual show__visual--ui">
+            <svg viewBox="0 0 320 200" role="img" aria-label="Diagram: 75-plus weekly invoices flow through parse and match steps, splitting into approved and flagged exceptions">
+              <g class="ui-line" fill="none" stroke-width="1">
+                <rect x="18" y="16" width="120" height="26" rx="2"/>
+                <rect x="18" y="70" width="120" height="26" rx="2"/>
+                <rect x="18" y="124" width="120" height="26" rx="2"/>
+                <path d="M78 42v28M78 96v28"/>
+                <path d="M138 137h34v-38h26M138 137h34v38h26"/>
+              </g>
+              <text class="ui-t" x="30" y="33">75+ INVOICES / WK</text>
+              <text class="ui-t" x="30" y="87">PARSE + EXTRACT</text>
+              <text class="ui-t" x="30" y="141">MATCH TO RATE CARD</text>
+              <g class="ui-accent-f">
+                <circle cx="204" cy="99" r="3"/>
+                <text class="ui-t ui-t--a" x="214" y="103">APPROVED</text>
+              </g>
+              <circle class="ui-dim-f" cx="204" cy="175" r="3"/>
+              <text class="ui-t ui-t--d" x="214" y="179">FLAGGED</text>
+              <text class="ui-t ui-t--d" x="18" y="192">FULLY AUTOMATED · PYTHON</text>
+            </svg>
+          </span>
+        </a>
+        <p class="show__cap"><b>Air Cargo Invoice Audit Automation.</b> Python and AI workflow that fully automates 75+ weekly air-cargo spot-invoice audits at Tesla.</p>
+      </article>
+
+      <article class="show reveal" data-cat="technology">
+        <a class="show__card" href="https://www.linkedin.com/in/saulgerardo/details/projects/" target="_blank" rel="noopener">
+          <!-- Diagram, not a dashboard mock. The ULD outline is the real
+               AKE-style shape: one lower corner cut away to sit under the
+               curve of the fuselage. -->
+          <span class="show__visual show__visual--ui">
+            <svg viewBox="0 0 320 200" role="img" aria-label="Diagram: a unit load device container beside three dashboard tiles and a count of 500-plus automated lease returns">
+              <g class="ui-line" fill="none" stroke-width="1">
+                <path d="M20 30h96v104H50L20 96z"/>
+                <rect x="146" y="30" width="154" height="30" rx="2"/>
+                <rect x="146" y="68" width="154" height="30" rx="2"/>
+                <rect x="146" y="106" width="154" height="28" rx="2"/>
+              </g>
+              <!-- Both labels sit in the container's full-height upper half —
+                   below the cut corner they'd fall outside the outline. -->
+              <text class="ui-t ui-t--d" x="32" y="56">ULD</text>
+              <text class="ui-t ui-t--d" x="32" y="74">AKE</text>
+
+              <text class="ui-t" x="156" y="50">FLEET UTILISATION</text>
+              <text class="ui-t" x="156" y="88">LEASE AGEING</text>
+              <text class="ui-t" x="156" y="125">RETURN BACKLOG</text>
+              <g class="ui-accent-f">
+                <rect x="266" y="40" width="24" height="6" rx="1"/>
+                <rect x="266" y="78" width="14" height="6" rx="1"/>
+                <rect x="266" y="115" width="19" height="6" rx="1"/>
+              </g>
+
+              <text class="ui-t ui-t--a" x="20" y="168">500+</text>
+              <text class="ui-t ui-t--d" x="66" y="168">LEASE RETURNS AUTOMATED</text>
+              <text class="ui-t ui-t--d" x="20" y="188">3 DASHBOARDS · DAILY REFRESH · POWER BI</text>
+            </svg>
+          </span>
+        </a>
+        <p class="show__cap"><b>United ULD Analytics.</b> Three daily-refreshing Power&nbsp;BI dashboards plus 500+ automated ULD lease returns.</p>
+      </article>
+
+      <!-- ══ PLACEHOLDER — new project ══
+           To publish it:
+             1. add href="…" to the <a> below
+             2. replace the title and description in .show__cap
+             3. swap .show__visual--todo for a real preview
+                (--ui for an inline SVG, --chart for an image pair)
+             4. set data-cat to supply-chain | technology | finance
+             5. delete the `hidden` attribute
+           `hidden` is on so this doesn't ship as a visibly unfinished card
+           on the live site. Remove it when the project is ready. -->
+      <article class="show reveal" data-cat="technology" hidden>
+        <!-- Intentionally no href yet. An <a> without one is inert and
+             unclickable, which beats href="#" jumping the reader to the top
+             of the page. Adding the href is the only change needed. -->
+        <a class="show__card">
+          <span class="show__visual show__visual--todo">
+            <svg viewBox="0 0 320 200" role="img" aria-label="Placeholder for an upcoming project">
+              <rect class="ui-todo-frame" x="18" y="18" width="284" height="164" rx="3"/>
+              <text class="ui-t ui-t--d" x="160" y="104" text-anchor="middle">PREVIEW</text>
+            </svg>
+          </span>
+        </a>
+        <p class="show__cap"><b>New project.</b> In progress — details soon.</p>
+      </article>
+
+      <article class="show reveal" data-cat="supply-chain">
+        <a class="show__card" data-link="resume" target="_blank" rel="noopener">
+          <!-- Same Europe-to-Asia idea as the old map, redrawn in the same
+               language as the other tiles: lanes normalised to cost per km. -->
+          <span class="show__visual show__visual--ui">
+            <svg viewBox="0 0 320 200" role="img" aria-label="Diagram: rail lanes from Duisburg to Chengdu normalised to a cost per kilometre, showing a 15 percent reduction">
+              <g class="ui-line" fill="none" stroke-width="1">
+                <path d="M40 58h240M40 92h240M40 126h240" stroke-dasharray="2 5"/>
+              </g>
+              <g class="ui-accent" fill="none" stroke-width="1.6">
+                <path d="M40 58h176"/>
+                <path d="M40 92h214"/>
+                <path d="M40 126h138"/>
+              </g>
+              <g class="ui-accent-f">
+                <circle cx="40" cy="58" r="3"/><circle cx="216" cy="58" r="3"/>
+                <circle cx="40" cy="92" r="3"/><circle cx="254" cy="92" r="3"/>
+                <circle cx="40" cy="126" r="3"/><circle cx="178" cy="126" r="3"/>
+              </g>
+              <text class="ui-t ui-t--d" x="18" y="34">DUISBURG</text>
+              <text class="ui-t ui-t--d" x="232" y="34">CHENGDU</text>
+              <text class="ui-t ui-t--d" x="40" y="50">LANE A</text>
+              <text class="ui-t ui-t--d" x="40" y="84">LANE B</text>
+              <text class="ui-t ui-t--d" x="40" y="118">LANE C</text>
+              <text class="ui-t ui-t--a" x="18" y="162">60+ QUOTES → COST / KM</text>
+              <text class="ui-t ui-t--d" x="18" y="182">UP TO 15% LANE COST REDUCTION</text>
+            </svg>
+          </span>
+        </a>
+        <p class="show__cap"><b>Rail RFQ Model.</b> Normalized 60+ Europe-to-Asia lane quotes to a true cost per km, cutting cost up to 15%.</p>
+      </article>
+
+      <article class="show reveal" data-cat="supply-chain">
+        <a class="show__card" href="https://github.com/sauldgerardo/Corriente" target="_blank" rel="noopener">
+          <!-- The app's real order screen: its own column headings
+               (Ayer / Final Count / Order) and its own products. -->
+          <span class="show__visual show__visual--ui">
+            <svg viewBox="0 0 320 200" role="img" aria-label="The Corriente order screen: bakery products listed with yesterday's count, today's final count, and the suggested order quantity">
+              <g class="ui-line" fill="none" stroke-width="1">
+                <rect x="14" y="14" width="292" height="172" rx="3"/>
+                <path d="M14 44h292M14 68h292M14 96h292M14 124h292M14 152h292"/>
+                <path d="M196 44v108M242 44v108"/>
+              </g>
+              <text class="ui-t ui-t--a" x="26" y="34">PANADERÍA ORDERS</text>
+              <text class="ui-t ui-t--d" x="228" y="34">MONARCA</text>
+
+              <text class="ui-t ui-t--d" x="26" y="61">PRODUCT</text>
+              <text class="ui-t ui-t--d" x="204" y="61">AYER</text>
+              <text class="ui-t ui-t--d" x="250" y="61">ORDER</text>
+
+              <g class="ui-t">
+                <text x="26" y="87">conchas</text>
+                <text x="204" y="87">36</text>
+                <text x="26" y="115">churros</text>
+                <text x="204" y="115">24</text>
+                <text x="26" y="143">mantecada</text>
+                <text x="204" y="143">18</text>
+              </g>
+              <g class="ui-t ui-t--a">
+                <text x="250" y="87">40</text>
+                <text x="250" y="115">20</text>
+                <text x="250" y="143">24</text>
+              </g>
+              <text class="ui-t ui-t--d" x="26" y="172">28 PRODUCTS · DEMAND FORECAST</text>
+            </svg>
+          </span>
+        </a>
+        <p class="show__cap"><b>Corriente.</b> Replaces the paper clipboard behind a family grocery's nightly bakery order, forecasting demand across 28 products.</p>
+      </article>
+
+      <article class="show reveal" data-cat="finance">
+        <a class="show__card" href="https://github.com/sauldgerardo/DCF-Zebra-Technologies" target="_blank" rel="noopener">
+          <!-- Every figure here is read straight out of the workbook:
+               WACC 9.5%, g 2.5%, EV $8,824.9M, implied share price $134.46,
+               and the real sensitivity row at WACC 9.0%. -->
+          <span class="show__visual show__visual--ui">
+            <svg viewBox="0 0 320 200" role="img" aria-label="Valuation summary: implied share price of 134.46 dollars at a 9.5 percent WACC and 2.5 percent terminal growth, with a sensitivity grid">
+              <g class="ui-line" fill="none" stroke-width="1">
+                <rect x="14" y="14" width="292" height="76" rx="3"/>
+                <rect x="14" y="102" width="292" height="58" rx="3"/>
+                <path d="M14 130h292M170 102v58M238 102v58"/>
+              </g>
+              <text class="ui-t ui-t--d" x="26" y="34">IMPLIED SHARE PRICE</text>
+              <text class="ui-big ui-t--a" x="26" y="66">$134.46</text>
+              <text class="ui-t ui-t--d" x="196" y="52">WACC 9.5%</text>
+              <text class="ui-t ui-t--d" x="196" y="70">g 2.5%</text>
+
+              <text class="ui-t ui-t--d" x="26" y="122">SENSITIVITY</text>
+              <text class="ui-t ui-t--d" x="182" y="122">g 2.0%</text>
+              <text class="ui-t ui-t--d" x="250" y="122">g 3.0%</text>
+              <text class="ui-t ui-t--d" x="26" y="150">WACC 9.0%</text>
+              <text class="ui-t" x="182" y="150">128.36</text>
+              <text class="ui-t" x="250" y="150">137.35</text>
+              <text class="ui-t ui-t--d" x="26" y="180">EV $8,824.9M · 5-YR UNLEVERED</text>
+            </svg>
+          </span>
+        </a>
+        <p class="show__cap"><b>DCF Zebra Technologies.</b> Five-year unlevered DCF of Zebra Technologies exporting an auditable Excel workbook with a WACC by terminal-growth sensitivity table.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="leadership">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-index" aria-hidden="true">02 / Leadership</p>
+      <h2>Leadership &amp; Involvement</h2>
+    </div>
+
+    <div class="leader">
+      <article class="lcard reveal">
+        <h3>Alpha Kappa Psi</h3>
+        <p class="lcard__role">Chapter President · Nov 2024 to Nov 2025</p>
+        <p>Led a chapter turnaround at the professional business fraternity, directing 10 executives to
+           grow membership by 50+ and land 5+ Fortune 500 partnerships.</p>
+      </article>
+
+      <article class="lcard reveal">
+        <h3>Supply Chain Management Club</h3>
+        <p class="lcard__role">President · May 2026 to May 2027</p>
+        <p>Led risk management for professional trips, spearheaded the ProMat 2025 and 2027 trips, and
+           secured $2.5K+ in funding.</p>
+      </article>
+
+      <article class="lcard reveal">
+        <h3>PRISUM Solar Car</h3>
+        <p class="lcard__role">Supply Chain Representative &amp; Material Planner · May 2026 to May 2027</p>
+        <p>Managed material planning for the PV array, battery cells, and power electronics across
+           10+ suppliers.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section beyond" id="beyond">
+  <div class="wrap beyond__grid">
+
+    <div class="beyond__item">
+      <p class="sec-index" aria-hidden="true">03 / Outside work</p>
+      <h3>Outside work</h3>
+
+      <div class="beyond__sub">
+        <h4>Languages spoken</h4>
+        <ul class="chips"><li>Spanish</li><li>English</li><li>Mandarin</li></ul>
+      </div>
+
+      <div class="beyond__sub">
+        <h4>Hobbies &amp; Interests</h4>
+        <ul class="chips">
+          <li>Marathons</li><li>Aviation</li><li>Economics</li><li>Architecture</li>
+          <li>Public Transit</li><li>Chicago Sports</li><li>Eintracht Frankfurt</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="life">
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-01.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-03.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-04.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-05.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-07.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-08.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-10.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-11.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-12.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-13.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-14.jpg" alt=""></figure>
+      <figure class="life__item"><img loading="lazy" src="assets/img/life/life-15.jpg" alt=""></figure>
+    </div>
+
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div class="contact__inner">
+      <p class="sec-index" aria-hidden="true">04 / Contact</p>
+      <h2>Get in touch</h2>
+      <div class="contact__cta">
+        <!-- No résumé download here on purpose. The PDF stays reachable from
+             the Rail RFQ project card, which is work that's on the résumé. -->
+        <a class="btn btn--primary" data-link="email">Email me</a>
+      </div>
+
+      <div class="social">
+        <a class="social__link" data-link="email" aria-label="Email sauldgerardo@gmail.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+        </a>
+        <a class="social__link" data-link="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+        <a class="social__link" data-link="github" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+        <a class="social__link" data-link="x" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.68l-8.04 9.19L24 22.5h-7.4l-5.8-7.58L4.16 22.5H.47l8.6-9.83L0 1.5h7.59l5.24 6.93zm-1.29 18.79h2.04L6.49 3.6H4.3z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Saul Gerardo</p>
+    <a href="#top" class="footer__top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=29"></script>
+<!-- world.js defines the coastline data globe.js draws; order matters. -->
+<script src="assets/js/world.js?v=29"></script>
+<script src="assets/js/globe.js?v=29"></script>
+</body>
+</html>

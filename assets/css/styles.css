@@ -1,0 +1,1288 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Display face for h1/h2 and the featured project title. */
+  --font-display: "Syne", var(--font-sans);
+  /* Micro-type: eyebrows, nav, buttons, tags, dates, footer. Long-form body
+     copy deliberately stays on --font-sans — monospace paragraphs are the one
+     thing that would actually cost readability here. */
+  --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --max: 1180px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+
+  /* Tight radii read as technical; the old 6/10/16 read as friendly. */
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 6px;
+
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Accent is electric cyan. On black it hits ~11:1, so it is safe on links,
+   small labels, and hairlines alike.
+
+   Neutrals are cool greys. The palette used warm greys when the accent was
+   Iowa State cardinal — a red accent on blue-grey neutrals reads as two
+   unrelated palettes sharing a page, and cyan on warm grey has exactly the
+   same problem in the other direction.
+
+   --accent-ink is the text color *on* an accent fill, and it is near-black,
+   not white: white on #22d3ee is 2:1 and fails outright, while #001014 on
+   the same fill clears 11:1. */
+
+/* ── DARK (the default) ──
+   Pure #000 rather than a lifted near-black. The reference commits to it, and
+   the cyan needs the full depth behind it to actually glow. Separation between
+   surfaces comes from hairlines, not from background steps. */
+[data-theme="dark"] {
+  --bg:        #000000;
+  --bg-alt:    #070708;
+  --surface:   #0a0a0c;
+  --surface-2: #111114;
+  --line:      rgba(255, 255, 255, .12);
+  --line-soft: rgba(255, 255, 255, .06);
+  --text:      #ffffff;
+  --text-mid:  rgba(255, 255, 255, .72);   /* 10.6:1 on #000 */
+  /* The reference dims to .40, which is 3.7:1 and fails AA — and every token
+     that uses --text-dim here is small text (dates, tags, footer, dt labels).
+     .55 keeps the hierarchy and clears 6:1. */
+  --text-dim:  rgba(255, 255, 255, .55);
+  --accent:        #22d3ee;
+  --accent-strong: #22d3ee;
+  --accent-deco:   #22d3ee;
+  --accent-ink:    #001014;
+  --accent-soft: rgba(34, 211, 238, .10);
+  --shadow: 0 1px 2px rgba(0,0,0,.6), 0 8px 30px rgba(0,0,0,.7);
+  --glow: 0 0 0 1px rgba(34,211,238,.35), 0 0 32px -6px rgba(34,211,238,.45);
+}
+
+/* ── LIGHT ──
+   #22d3ee on white is ~1.9:1 and unusable, so the accent deepens to #0e7490
+   (~4.9:1) here. Same hue family, so the two themes still read as one site. */
+[data-theme="light"] {
+  --bg:        #ffffff;
+  --bg-alt:    #f7f9fa;
+  --surface:   #ffffff;
+  --surface-2: #eef2f4;
+  --line:      #dde3e7;
+  --line-soft: #eaeef1;
+  --text:      #0b0f12;   /* cool near-black, 18.5:1 on white */
+  --text-mid:  #46525a;   /* 7.9:1 */
+  --text-dim:  #5c6970;   /* 5.7:1 — the obvious #78868f is 3.8:1 and fails */
+  --accent:        #0e7490;
+  --accent-strong: #0e7490;
+  --accent-deco:   #0e7490;
+  --accent-ink:    #ffffff;
+  --accent-soft: rgba(14, 116, 144, .08);
+  --shadow: 0 2px 5px -1px rgba(11,15,18,.09), 0 12px 32px -8px rgba(11,15,18,.13);
+  --glow: 0 0 0 1px rgba(14,116,144,.30), 0 6px 24px -8px rgba(14,116,144,.35);
+}
+
+/* ═══════════════════════════════ BASE ═══════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px; /* keeps anchors clear of the sticky nav */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color .3s var(--ease), color .3s var(--ease);
+}
+
+img { max-width: 100%; display: block; }
+ul, ol, dl, dd { margin: 0; padding: 0; }
+li { list-style: none; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.12;
+}
+
+/* Display face on the two loudest levels only. h3 stays on the sans — Syne at
+   card-title size is all personality and no legibility. */
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.02;
+}
+h2 { font-weight: 700; }
+
+/* Shared micro-type treatment. Everything that isn't a sentence uses this:
+   eyebrows, nav, buttons, tags, dates, flags, footer. */
+.eyebrow,
+.sec-index,
+.nav__links a,
+.mark,
+.btn,
+.tags li,
+.chips li,
+.proj__tools span,
+.repo__meta span,
+.show__flag,
+.proj__cat,
+.lcard__role,
+.role__date,
+.tl__date,
+.beyond__sub h4,
+.about__facts dt,
+.proj__dl dt,
+.repos-head span,
+.kit b,
+.footer__inner {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+p { margin: 0 0 1.05em; }
+p:last-child { margin-bottom: 0; }
+strong { font-weight: 600; color: var(--text); }
+
+a { color: inherit; text-decoration: none; }
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--accent); color: var(--accent-ink);
+  padding: .7rem 1.1rem; z-index: 200; font-weight: 600;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
+
+/* ═══════════════════════════════ NAV ═══════════════════════════════ */
+
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s var(--ease), border-color .3s var(--ease), backdrop-filter .3s;
+}
+.nav.is-stuck {
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-bottom-color: var(--line);
+}
+
+.nav__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; height: 68px;
+}
+
+.mark {
+  font-weight: 700; font-size: .72rem;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: .45rem .6rem; line-height: 1;
+  transition: border-color .2s, color .2s, box-shadow .2s;
+}
+.mark:hover {
+  border-color: var(--accent); color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.nav__links { display: flex; gap: 1.9rem; }
+.nav__links a {
+  font-size: .72rem; color: var(--text-mid); font-weight: 400;
+  position: relative; padding: .25rem 0;
+  transition: color .2s;
+}
+.nav__links a::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: 0;
+  height: 1px; background: var(--accent-deco);
+  transition: right .35s var(--ease);
+}
+.nav__links a:hover { color: var(--text); }
+.nav__links a:hover::after,
+.nav__links a.is-active::after { right: 0; }
+.nav__links a.is-active { color: var(--text); }
+
+.nav__actions { display: flex; align-items: center; gap: .6rem; }
+
+/* ── dropdowns (nav "Experience" + "Get in touch") ── */
+.dropdown { position: relative; }
+
+.dropdown__trigger {
+  display: inline-flex; align-items: center; gap: .3rem;
+  cursor: pointer;
+}
+.dropdown__caret {
+  width: 13px; height: 13px; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform .25s var(--ease); opacity: .65;
+}
+.dropdown.is-open > .dropdown__trigger .dropdown__caret { transform: rotate(180deg); }
+
+.dropdown__menu {
+  position: absolute; top: calc(100% + .55rem); left: 0;
+  min-width: 178px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow);
+  padding: .35rem;
+  display: grid; gap: 1px;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-5px);
+  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
+  z-index: 120;
+}
+.dropdown--right .dropdown__menu { left: auto; right: 0; }
+.dropdown__menu--wide { min-width: 232px; }
+
+.dropdown.is-open > .dropdown__menu {
+  opacity: 1; visibility: visible; transform: none;
+}
+
+.dropdown__menu a {
+  display: block;
+  padding: .55rem .7rem;
+  border-radius: var(--r-sm);
+  font-size: .875rem; color: var(--text-mid);
+  transition: background-color .15s, color .15s;
+}
+.dropdown__menu a:hover { background: var(--surface-2); color: var(--text); }
+.dropdown__menu a::after { display: none; }
+
+.dd__k { display: block; font-weight: 500; color: var(--text); font-size: .85rem; }
+.dd__v { display: block; font-size: .78rem; color: var(--text-dim); margin-top: .1rem; }
+
+.icon-btn {
+  display: grid; place-items: center;
+  width: 36px; height: 36px; padding: 0;
+  background: none; border: 1px solid var(--line); border-radius: var(--r-sm);
+  color: var(--text-mid); cursor: pointer;
+  transition: color .2s, border-color .2s, background-color .2s;
+}
+.icon-btn:hover { color: var(--text); border-color: var(--text-dim); }
+.icon-btn svg {
+  width: 17px; height: 17px; fill: none;
+  stroke: currentColor; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+[data-theme="dark"] .i-sun  { display: block; }
+[data-theme="dark"] .i-moon { display: none; }
+[data-theme="light"] .i-sun  { display: none; }
+[data-theme="light"] .i-moon { display: block; }
+
+.nav__burger { display: none; }
+
+/* ═══════════════════════════════ BUTTONS ═══════════════════════════════ */
+
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .78rem 1.35rem;
+  font-size: .72rem; font-weight: 700;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: transparent; color: var(--text);
+  cursor: pointer; white-space: nowrap;
+  transition: border-color .2s, background-color .2s, color .2s, box-shadow .3s var(--ease);
+}
+/* Glow rather than lift. A 1px translate on pure black reads as jitter; a
+   cyan bloom reads as intent. */
+.btn:hover {
+  border-color: var(--accent); color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: var(--glow);
+}
+
+.btn--primary {
+  background: var(--accent-strong); border-color: var(--accent-strong);
+  color: var(--accent-ink); font-weight: 700;
+}
+.btn--primary:hover {
+  background: color-mix(in srgb, var(--accent-strong) 88%, #fff);
+  border-color: transparent; color: var(--accent-ink);
+  box-shadow: var(--glow);
+}
+
+.btn--sm { padding: .55rem 1rem; font-size: .65rem; }
+
+.btn__arrow {
+  width: 14px; height: 14px; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform .25s var(--ease);
+}
+.btn:hover .btn__arrow { transform: translate(2px, -2px); }
+
+/* ═══════════════════════════════ HERO ═══════════════════════════════ */
+
+/* The globe's outer orbits bleed past the content column on purpose; without
+   this they'd add a horizontal scrollbar on narrower desktops. */
+.hero { padding: clamp(3.5rem, 9vw, 7rem) 0 clamp(3rem, 6vw, 5rem); overflow: hidden; }
+
+.hero__grid {
+  display: grid;
+  /* The globe's column carries most of the visual weight now that road, rail
+     and sea traffic all live on the sphere — it needs the area. */
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.eyebrow {
+  margin: 0 0 1.5rem;
+  font-size: .65rem; font-weight: 700;
+  letter-spacing: .2em;
+  color: var(--text-dim);
+}
+
+/* The name is the hero. Sentence case in the markup, uppercased here.
+
+   Sized so "GERARDO" clears the copy column: Syne ExtraBold caps average
+   roughly .85em of advance, so seven of them run ~5.95em — 476px at the 5rem
+   cap, against the ~490px column. The cap came down from 6rem when the globe
+   took a larger share of the hero grid; widening that column and leaving this
+   alone would overflow the name. `break-word` used to live here as a safety
+   net and was the thing actually splitting the name; each line is its own
+   block now, so no wrapping rule is needed at all. */
+.hero__name {
+  font-size: clamp(3rem, 7.5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+.hero__name span { display: block; }
+
+.hero__greet {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  color: var(--text-mid);
+  margin-bottom: 1rem;
+}
+
+/* Mono here and in the greeting only. The rest of the page keeps Inter for
+   long-form copy — this is a three-line intro, and at line-height 2 it reads
+   fine while matching the reference's texture. */
+.hero__desc {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  line-height: 2;
+  color: var(--text-mid);
+  max-width: 52ch;
+  margin-bottom: 2.25rem;
+}
+
+.lede {
+  max-width: 56ch;
+  font-size: clamp(1rem, 1.35vw, 1.08rem);
+  color: var(--text-mid);
+  margin-bottom: 2.1rem;
+}
+
+.hero__cta { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+/* ── globe ──
+   It used to be absolutely positioned and oversized so it would overhang the
+   portrait's top-right corner — the photo was opaque, so a globe concentric
+   with it was a globe you couldn't see. With the column to itself none of
+   that is needed: it's just a square that fills its cell. */
+.hero__visual { display: flex; align-items: center; }
+
+.globe {
+  width: 100%;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+/* ── logo ticker ──
+   --tk-speed : lower = faster.
+   --tk-gap   : space between logos.
+   --tk-item  : fixed slot width; the window below is sized to show four.  */
+.ticker {
+  --tk-speed: 11s;
+  --tk-gap: 2.5rem;
+  --tk-height: 46px;
+  --tk-item: 170px;
+
+  /* window = N slots, each slot being item + gap. Change the 4 to show more
+     or fewer at a time. */
+  max-width: calc((var(--tk-item) + var(--tk-gap)) * 4);
+  margin: clamp(2.75rem, 6vw, 4rem) auto 0;
+
+  overflow: hidden;
+  position: relative;
+  padding: 1.5rem 0;
+  border-block: 1px solid var(--line-soft);
+
+  /* fades the logos out at both edges instead of cutting them off */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+
+.ticker__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: tk-scroll var(--tk-speed) linear infinite;
+}
+.ticker:hover .ticker__track { animation-play-state: paused; }
+
+/* Spacing lives on the item, not as flex `gap`. main.js doubles the list and
+   the loop translates -50%, so every slot has to be exactly item + gap wide —
+   `gap` puts n-1 gaps between n items, which leaves the seam short by one and
+   makes the loop visibly jump. */
+@keyframes tk-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.tk {
+  flex: 0 0 var(--tk-item);
+  width: var(--tk-item);
+  height: var(--tk-height);
+  margin-right: var(--tk-gap);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: .45;
+  transition: opacity .3s var(--ease);
+}
+.tk img {
+  /* Explicit px caps — never percentages. A percentage height here depends
+     on the parent resolving its own height first, and when it doesn't the
+     image blows up to its intrinsic size and overflows the band. */
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 22px;
+  max-width: 100%;
+  object-fit: contain;
+  /* logos render in flat black so six different brand palettes don't clash */
+  filter: grayscale(1) brightness(0);
+}
+[data-theme="dark"] .tk img { filter: grayscale(1) brightness(0) invert(1); }
+
+/* Per-logo optical sizing. Every logo has a different aspect ratio, so one
+   uniform height makes wide wordmarks tower over compact badges. These are
+   balanced by eye — raise or lower a value if one looks off. */
+.tk[data-logo="tesla"]                img { max-height: 20px; }
+.tk[data-logo="united-airlines"]      img { max-height: 17px; }
+.tk[data-logo="pfizer"]               img { max-height: 24px; }
+.tk[data-logo="alpha-kappa-psi"]      img { max-height: 20px; }
+.tk[data-logo="palace-entertainment"] img { max-height: 44px; }
+.tk[data-logo="iowa-state"]           img { max-height: 42px; }
+.ticker:hover .tk { opacity: .45; }
+.ticker .tk:hover { opacity: 1; }
+
+/* Falls back to a static wrapping row. */
+@media (prefers-reduced-motion: reduce) {
+  .ticker { -webkit-mask-image: none; mask-image: none; max-width: 900px; }
+  .ticker__track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+}
+
+/* Typographic fallback shown when no logo file is found for an item */
+.tk--text {
+  white-space: nowrap;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -.015em;
+  color: var(--text);
+}
+
+/* ── metrics strip ── */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: clamp(3rem, 7vw, 5rem);
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.metrics li {
+  background: var(--bg);
+  padding: 1.4rem 1.35rem;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.metrics__n {
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  font-weight: 600; letter-spacing: -.03em;
+  font-variant-numeric: tabular-nums;
+}
+.metrics__l { font-size: .8rem; color: var(--text-dim); line-height: 1.45; }
+
+/* ═══════════════════════════════ SECTIONS ═══════════════════════════════ */
+
+.section { padding: clamp(4rem, 9vw, 7.5rem) 0; }
+.section--alt {
+  background: var(--bg-alt);
+  border-block: 1px solid var(--line-soft);
+}
+
+/* The head itself is uncapped so .sec-index's hairline can span the whole
+   content column; the measure cap lives on the text children instead. */
+.sec-head { margin-bottom: clamp(2.5rem, 5vw, 3.75rem); }
+.sec-head h2 { font-size: clamp(2rem, 4.5vw, 3.25rem); max-width: 20ch; }
+.sec-sub { margin-top: .9rem; color: var(--text-mid); font-size: 1rem; max-width: 62ch; }
+
+/* "01 / PROJECTS" over a full-bleed hairline — the reference's `WORK ─────`
+   treatment. The rule spans the content column, not just the label, so the
+   sec-head's own max-width can't constrain it. */
+.sec-index {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 0 0 1.25rem;
+  font-size: .62rem; font-weight: 700; letter-spacing: .2em;
+  color: var(--accent);
+}
+.sec-index::after {
+  content: ""; flex: 1; height: 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ═══════════════════════════════ ABOUT ═══════════════════════════════ */
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.about__body { color: var(--text-mid); font-size: 1.02rem; }
+.about__lead {
+  font-size: clamp(1.12rem, 1.8vw, 1.32rem);
+  line-height: 1.5; color: var(--text);
+  letter-spacing: -.015em; margin-bottom: 1.3em;
+}
+
+.about__facts {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  padding: 1.6rem;
+}
+.about__facts dl { display: grid; gap: 1.35rem; }
+.about__facts dt {
+  font-size: .72rem; font-weight: 600; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--text-dim); margin-bottom: .35rem;
+}
+.about__facts dd { font-size: .92rem; color: var(--text); line-height: 1.55; }
+
+/* Toolkit sub-groups (Tech / Ops / Finance) */
+.kit { display: grid; gap: .7rem; }
+.kit span { display: block; font-size: .88rem; line-height: 1.5; }
+.kit b {
+  display: block;
+  font-size: .68rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: .15rem;
+}
+
+/* ═══════════════════════════════ ROLES (experience) ═══════════════════════════════ */
+
+.sec-head__cta { margin-top: 1.5rem; }
+
+.roles { display: grid; }
+
+.role {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.25rem);
+  padding: 1.35rem 0;
+  border-top: 1px solid var(--line-soft);
+  transition: background-color .25s var(--ease);
+}
+.role:last-child { border-bottom: 1px solid var(--line-soft); }
+
+.role__logo { display: flex; align-items: center; height: 30px; }
+.role__logo img {
+  display: block;
+  width: auto; height: auto;
+  max-height: 26px; max-width: 104px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(0);
+  opacity: .82;
+}
+[data-theme="dark"] .role__logo img { filter: grayscale(1) brightness(0) invert(1); }
+
+/* per-logo optical sizing, same idea as the ticker */
+.role__logo img[alt="Pfizer"]               { max-height: 22px; }
+.role__logo img[alt="Tesla"]                { max-height: 17px; }
+.role__logo img[alt="United Airlines"]      { max-height: 15px; }
+.role__logo img[alt="Palace Entertainment"] { max-height: 30px; }
+
+.role__text { display: flex; flex-direction: column; gap: .1rem; }
+.role__title {
+  font-size: 1.06rem; font-weight: 600;
+  letter-spacing: -.02em; color: var(--text);
+}
+.role__co { font-size: .9rem; color: var(--accent); font-weight: 500; }
+.role__date {
+  font-size: .85rem; color: var(--text-dim);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
+/* ═══════════════════════════════ SHOWCASE (selected work) ═══════════════════════════════ */
+
+/* True masonry via CSS columns — cards flow and stagger like the reference. */
+.showcase {
+  columns: 3 260px;
+  column-gap: 1.1rem;
+}
+@media (max-width: 900px) { .showcase { columns: 2 220px; } }
+@media (max-width: 560px) { .showcase { columns: 1; } }
+
+.show {
+  break-inside: avoid;
+  margin: 0 0 1.5rem;
+}
+
+.show__card {
+  display: block;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+.show__card:hover {
+  box-shadow: var(--glow);
+  border-color: var(--accent);
+}
+
+.show__visual {
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: var(--surface-2);
+}
+
+/* Cover images (photos, charts) fill the tile */
+.show__visual--cover { aspect-ratio: 16 / 10; }
+.show__visual--cover img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .5s var(--ease);
+}
+.show__card:hover .show__visual--cover img { transform: scale(1.04); }
+
+/* ── Inline SVG mini-previews ──
+   Authored against a 320×200 viewBox. Everything is driven by the theme
+   tokens rather than hardcoded, so these follow the theme toggle — which is
+   the whole reason they're inline in the markup and not <img src="…svg">.
+   An SVG loaded through <img> is an isolated document and can't see
+   data-theme on the parent page. */
+.show__visual--ui {
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  background:
+    radial-gradient(120% 120% at 50% 0, var(--accent-soft), transparent 62%),
+    var(--surface);
+}
+.show__visual--ui svg { width: 100%; height: 100%; display: block; }
+
+/* Stroke and fill are deliberately separate classes. A single class setting
+   both would beat the fill="none" presentation attribute on the stroked
+   groups (CSS always wins over presentation attributes) and would also paint
+   a cyan outline onto any text inheriting from the group. */
+.ui-line       { stroke: var(--line); }
+.ui-accent     { stroke: var(--accent); }
+.ui-accent-f   { fill: var(--accent); stroke: none; }
+.ui-dim-f      { fill: var(--text-dim); stroke: none; }
+
+/* 320-wide viewBox against a ~330px tile is close enough to 1:1 that these
+   px sizes land near their nominal rem values on screen. */
+.ui-t {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  fill: var(--text-mid);
+  stroke: none;   /* never inherit a stroke from an enclosing <g> */
+}
+.ui-t--a   { fill: var(--accent); }
+.ui-t--d   { fill: var(--text-dim); }
+.ui-big {
+  font-family: var(--font-display);
+  font-size: 30px; font-weight: 800; letter-spacing: -.02em;
+  stroke: none;
+}
+
+/* Placeholder tile for a project that doesn't exist yet. Same aspect ratio as
+   its neighbours so the masonry grid stays even. */
+.show__visual--todo {
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  background: var(--bg-alt);
+}
+.show__visual--todo svg { width: 100%; height: 100%; display: block; }
+.ui-todo-frame {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 5 5;
+}
+/* The card carries no href while it's a placeholder, so kill the pointer and
+   the hover glow it would otherwise inherit. */
+.show__card:not([href]) { cursor: default; }
+.show__card:not([href]):hover {
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+/* Charts are raster and can't follow the theme, so both variants ship and
+   only one is shown. */
+.show__visual--chart { aspect-ratio: 16 / 10; background: var(--surface); }
+.show__visual--chart img,
+.show__featimg img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+[data-theme="dark"]  .thm--light,
+[data-theme="light"] .thm--dark { display: none; }
+
+/* Brand logos + map centered on a subtly tinted panel */
+.show__visual--brand,
+.show__visual--map {
+  aspect-ratio: 16 / 10; padding: 2rem;
+  background: radial-gradient(130% 130% at 50% 0, var(--accent-soft), transparent 62%), var(--surface-2);
+}
+.show__visual--brand img { max-height: 56px; max-width: 74%; width: auto; object-fit: contain; }
+
+/* Pictorial marks (Corriente) rather than wide wordmarks. Two things fought
+   the size here: the 56px cap above, which is meant for logos like Tesla and
+   Zebra that are far wider than they are tall, and the 2rem panel padding,
+   which was eating roughly a third of the tile's height. Drop both and let
+   the mark fill the frame; object-fit keeps it from distorting. */
+/* Tile keeps the same 16/10 as its neighbours so the grid stays even; only
+   the padding is trimmed, which is what actually gives the mark its size. */
+.show__visual--mark { padding: 1rem; }
+.show__visual--mark img {
+  width: 100%; height: 100%;
+  max-width: none; max-height: none;
+  object-fit: contain;
+}
+
+/* Eurasia map is a wide colored graphic — size by width, no dark invert */
+.show__visual--map { padding: 1.5rem; }
+.show__visual--map img { width: 92%; max-height: 88%; object-fit: contain; }
+
+.show__cap {
+  margin: .95rem .15rem 0;
+  font-size: .95rem; color: var(--text-mid); line-height: 1.5;
+}
+.show__cap b { color: var(--text); font-weight: 600; }
+
+.show.is-hidden { display: none; }
+
+/* ── Featured (full-width) card ── */
+.show--feature { column-span: all; margin-bottom: 1.9rem; }
+.show__card--feature {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  align-items: stretch;
+  min-height: 300px;
+}
+.show__featimg {
+  display: flex; overflow: hidden;
+  background: var(--bg-alt); padding: 1rem;
+}
+.show__featimg img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.show__feattext {
+  padding: clamp(1.6rem, 3vw, 2.75rem);
+  display: flex; flex-direction: column; justify-content: center; gap: .5rem;
+}
+.show__flag {
+  font-size: .62rem; font-weight: 700; letter-spacing: .2em;
+  color: var(--accent);
+}
+.show__ftitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+  font-weight: 800; letter-spacing: -.03em; line-height: 1.05;
+}
+.show__fdesc { font-size: .97rem; color: var(--text-mid); line-height: 1.6; margin-top: .25rem; }
+.show__flink {
+  margin-top: .8rem; display: inline-flex; align-items: center; gap: .4rem;
+  font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .12em;
+  font-size: .65rem; font-weight: 700; color: var(--text);
+  transition: color .2s;
+}
+.show__card--feature:hover .show__flink { color: var(--accent); }
+.show__flink .btn__arrow { width: 14px; height: 14px; }
+
+@media (max-width: 680px) {
+  .show__card--feature { grid-template-columns: 1fr; min-height: 0; }
+  .show__featimg { aspect-ratio: 16 / 10; }
+}
+
+/* ═══════════════════════════════ WORK CATEGORIES ═══════════════════════════════ */
+
+.cat { padding-top: clamp(2rem, 4vw, 3rem); }
+.cat + .cat {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--line-soft);
+}
+
+.cat__head { max-width: 68ch; margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+.cat__head h3 {
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  margin-bottom: .7rem;
+}
+.cat__head p { font-size: .98rem; color: var(--text-mid); margin-bottom: 1.15rem; }
+
+/* ═══════════════════════════════ TIMELINE ═══════════════════════════════ */
+
+.timeline { display: grid; }
+
+.tl {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(1.9rem, 3.5vw, 2.75rem) 0;
+  border-top: 1px solid var(--line-soft);
+}
+.tl:last-child { border-bottom: 1px solid var(--line-soft); }
+
+.tl__meta { display: flex; flex-direction: column; gap: .3rem; }
+.tl__co {
+  font-size: 1.06rem; font-weight: 600; letter-spacing: -.02em;
+}
+.tl__date {
+  font-size: .82rem; color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.tl__body h3 {
+  font-size: 1.14rem; font-weight: 600;
+  color: var(--accent); margin-bottom: .55rem;
+}
+.tl__desc { color: var(--text-mid); font-size: .96rem; max-width: 62ch; }
+
+.bullets { display: grid; gap: .62rem; margin: 1.15rem 0 0; }
+.bullets li {
+  position: relative; padding-left: 1.15rem;
+  font-size: .945rem; color: var(--text-mid);
+  line-height: 1.6; max-width: 68ch;
+}
+.bullets li::before {
+  content: ""; position: absolute; left: 0; top: .68em;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent-deco); opacity: .85;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.25rem; }
+.tags li {
+  font-size: .62rem; font-weight: 400;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm); padding: .3rem .65rem;
+}
+
+/* ═══════════════════════════════ PROJECTS ═══════════════════════════════ */
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 1.15rem;
+}
+
+.proj {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  display: flex; flex-direction: column;
+  transition: border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.proj:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.proj__head { margin-bottom: 1.4rem; }
+.proj__cat {
+  display: inline-block; margin-bottom: .6rem;
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: .25rem .55rem; border-radius: 4px;
+}
+.proj__head h4 {
+  margin: 0; font-weight: 600; line-height: 1.15;
+  font-size: 1.24rem; letter-spacing: -.028em;
+}
+
+.proj__dl { display: grid; gap: 0; }
+.proj__dl dt {
+  font-size: .7rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: .35rem;
+}
+.proj__dl dd {
+  font-size: .93rem; color: var(--text-mid); line-height: 1.6;
+  margin-bottom: 1.15rem;
+}
+.proj__dl dd:last-child { margin-bottom: 0; }
+
+.proj__tools { display: flex; flex-wrap: wrap; gap: .4rem; }
+.proj__tools span {
+  font-size: .76rem; font-weight: 500; color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px; padding: .22rem .55rem;
+}
+
+/* ═══════════════════════════════ GITHUB REPOS ═══════════════════════════════ */
+
+.repos-head {
+  display: flex; align-items: baseline; gap: .6rem;
+  margin: 2rem 0 1rem;
+}
+.repos-head span {
+  font-size: .7rem; font-weight: 600; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--text-dim);
+}
+.repos-head hr {
+  flex: 1; height: 0; margin: 0;
+  border: 0; border-top: 1px solid var(--line-soft);
+}
+
+.repos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: .85rem;
+}
+
+.repo {
+  display: flex; flex-direction: column;
+  gap: .55rem;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  transition: border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.repo:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.repo__top { display: flex; align-items: center; gap: .5rem; }
+.repo__top svg {
+  width: 15px; height: 15px; flex: 0 0 15px;
+  fill: currentColor; color: var(--text-dim);
+}
+.repo__name {
+  font-size: .97rem; font-weight: 600;
+  letter-spacing: -.02em; color: var(--text);
+}
+.repo__arrow {
+  margin-left: auto;
+  width: 14px; height: 14px; flex: 0 0 14px;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+  color: var(--text-dim);
+  transition: transform .25s var(--ease), color .25s;
+}
+.repo:hover .repo__arrow { transform: translate(2px, -2px); color: var(--accent); }
+
+.repo__desc { font-size: .885rem; color: var(--text-mid); line-height: 1.55; }
+
+.repo__meta { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: auto; padding-top: .3rem; }
+.repo__meta span {
+  font-size: .72rem; font-weight: 500; color: var(--text-dim);
+  border: 1px solid var(--line-soft); border-radius: 100px;
+  padding: .2rem .55rem;
+}
+.repo__meta .is-lang { color: var(--accent); border-color: var(--accent-soft); background: var(--accent-soft); }
+
+/* ═══════════════════════════════ FOCUS ═══════════════════════════════ */
+
+.focus {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 1.15rem;
+}
+
+.fcard {
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--accent-deco);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  padding: clamp(1.5rem, 3vw, 1.95rem);
+}
+.fcard h3 { font-size: 1.14rem; margin-bottom: .8rem; }
+.fcard p { font-size: .93rem; color: var(--text-mid); margin-bottom: 1.35rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chips li {
+  font-size: .62rem; font-weight: 400; color: var(--text-mid);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm); padding: .35rem .65rem;
+  transition: color .2s, border-color .2s;
+}
+.chips li:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ═══════════════════════════════ LEADERSHIP ═══════════════════════════════ */
+
+.leader {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1.15rem;
+}
+.lcard {
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--accent-deco);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  padding: clamp(1.4rem, 3vw, 1.8rem);
+  transition: border-color .25s var(--ease), box-shadow .3s var(--ease);
+}
+.lcard:hover { border-color: var(--accent); box-shadow: var(--glow); }
+.lcard h3 { font-size: 1.08rem; margin-bottom: .45rem; }
+.lcard__role {
+  font-size: .62rem; color: var(--accent);
+  font-weight: 700; margin-bottom: .9rem;
+}
+.lcard p:last-child { font-size: .92rem; color: var(--text-mid); }
+
+/* ═══════════════════════════════ BEYOND THE WORK ═══════════════════════════════ */
+
+.beyond { border-top: 1px solid var(--line-soft); }
+.beyond__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.beyond__item h3 {
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  letter-spacing: -.02em;
+  color: var(--text);
+  margin-bottom: 1.6rem;
+}
+.beyond__sub + .beyond__sub { margin-top: 1.75rem; }
+.beyond__sub h4 {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: .8rem;
+}
+
+/* Life / photo gallery — square thumbnails that tile densely */
+.life {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 128px), 1fr));
+  gap: .55rem;
+}
+.life__item {
+  position: relative;
+  margin: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+/* Twelve full-brightness photos would out-shout everything else on a black
+   page, so they rest slightly dimmed and come up on hover. */
+.life__item img {
+  width: 100%; height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover; display: block;
+  opacity: .82;
+  transition: transform .5s var(--ease), opacity .3s var(--ease);
+}
+.life__item:hover img { transform: scale(1.05); opacity: 1; }
+.life__item:hover { border-color: var(--accent); }
+
+@media (max-width: 760px) {
+  .beyond__grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════ CONTACT ═══════════════════════════════ */
+
+.contact { border-top: 1px solid var(--line-soft); }
+
+.contact__inner { max-width: 640px; }
+.contact__inner h2 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 1.4rem;
+}
+.contact__lede {
+  font-size: 1.04rem; color: var(--text-mid);
+  margin-bottom: 2rem;
+}
+.contact__cta { display: flex; flex-wrap: wrap; gap: .7rem; }
+.contact__addr {
+  margin-top: 1.6rem; font-size: .88rem; color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Social icon ribbon under the buttons */
+.social {
+  display: flex;
+  gap: .6rem;
+  margin-top: 2rem;
+}
+.social__link {
+  display: grid; place-items: center;
+  width: 42px; height: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  color: var(--text-mid);
+  transition: color .2s, border-color .2s, background-color .2s, transform .2s var(--ease);
+}
+.social__link svg { width: 19px; height: 19px; fill: currentColor; }
+.social__link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: var(--glow);
+}
+
+/* ═══════════════════════════════ FOOTER ═══════════════════════════════ */
+
+.footer { border-top: 1px solid var(--line-soft); padding: 2rem 0; }
+.footer__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+  font-size: .62rem; color: var(--text-dim);
+}
+.footer__top { transition: color .2s; }
+.footer__top:hover { color: var(--accent); }
+
+/* ═══════════════════════════════ MOTION ═══════════════════════════════ */
+
+/* Scroll reveal. The hidden state is gated behind .js-reveal on <html>, which
+   main.js only sets once it has confirmed it can actually observe elements and
+   that reduced motion isn't requested. Without that gate, a JS failure or an
+   unsupported browser would leave the whole page permanently invisible. */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+.js-reveal .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger siblings within a group rather than timing each element in JS. */
+.js-reveal .reveal:nth-child(2)  { transition-delay: .06s; }
+.js-reveal .reveal:nth-child(3)  { transition-delay: .12s; }
+.js-reveal .reveal:nth-child(4)  { transition-delay: .18s; }
+.js-reveal .reveal:nth-child(5)  { transition-delay: .24s; }
+.js-reveal .reveal:nth-child(n+6) { transition-delay: .30s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+  /* Belt and braces — main.js already declines to add .js-reveal here. */
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* ═══════════════════════════════ RESPONSIVE ═══════════════════════════════ */
+
+@media (max-width: 900px) {
+  .hero__grid { grid-template-columns: 1fr; }
+  /* Name first on mobile, globe under it — the giant type is the hero moment,
+     not the canvas. Capped so the globe doesn't run the full page width. */
+  .hero__visual { max-width: 380px; margin-inline: auto; }
+  .about { grid-template-columns: 1fr; }
+  .tl { grid-template-columns: 1fr; gap: 1rem; }
+  .tl__meta { flex-direction: row; align-items: baseline; gap: .7rem; }
+  .tl__date::before { content: "·"; margin-right: .55rem; color: var(--line); }
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+
+  /* Experience rows stack: logo + title, then date underneath */
+  .role {
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: .5rem 1.1rem;
+    align-items: start;
+  }
+  .role__logo { height: 24px; }
+  .role__logo img { max-height: 20px; max-width: 72px; }
+  .role__date { grid-column: 2; font-size: .8rem; }
+}
+
+@media (max-width: 760px) {
+  .nav__burger { display: grid; }
+
+  .nav__links {
+    position: absolute; top: 68px; left: 0; right: 0;
+    flex-direction: column; gap: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: .5rem var(--gutter) 1.25rem;
+    display: none;
+  }
+  .nav__links.is-open { display: flex; }
+  .nav__links > a,
+  .nav__links .dropdown__trigger {
+    padding: .8rem 0; font-size: 1rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav__links a::after { display: none; }
+
+  /* Dropdown flattens into an indented inline list on mobile */
+  .nav__links .dropdown { width: 100%; }
+  .nav__links .dropdown__trigger { display: flex; justify-content: space-between; }
+  .nav__links .dropdown__menu {
+    position: static; opacity: 1; visibility: visible; transform: none;
+    border: 0; box-shadow: none; background: none;
+    padding: 0 0 0 .9rem; min-width: 0;
+    display: none;
+  }
+  .nav__links .dropdown.is-open > .dropdown__menu { display: grid; }
+  .nav__links .dropdown__menu a {
+    padding: .65rem 0; border-bottom: 1px solid var(--line-soft);
+    border-radius: 0;
+  }
+  .nav__links .dropdown__menu a:hover { background: none; }
+
+  /* Contact links stay reachable via the Contact section on small screens */
+  .nav__actions .dropdown--right { display: none; }
+}
+
+@media (max-width: 480px) {
+  .metrics { grid-template-columns: 1fr; }
+  .hero__cta .btn, .contact__cta .btn { width: 100%; justify-content: center; }
+}
+
+/* ═══════════════════════════════ PRINT ═══════════════════════════════ */
+
+@media print {
+  .nav, .footer, .hero__visual, .contact__cta { display: none; }
+  body { background: #fff; color: #000; }
+  /* Dark is the default theme now, so printing has to force the reveal state
+     as well as the colors — otherwise anything not yet scrolled into view
+     prints blank. */
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .life__item img { opacity: 1 !important; }
+}
